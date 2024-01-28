@@ -15,7 +15,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class AccountService {
-    private AccountRepository accountRepository;
+    private final AccountRepository accountRepository;
 
     public Account createAccount(Account account){
         Map<String, String> validationErrors = new HashMap<>();
