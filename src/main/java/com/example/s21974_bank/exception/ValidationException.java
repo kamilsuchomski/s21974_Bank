@@ -1,4 +1,4 @@
-package com.exception;
+package com.example.s21974_bank.exception;
 
 import lombok.Getter;
 

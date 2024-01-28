@@ -1,13 +1,14 @@
-package com.service;
+package com.example.s21974_bank.service;
 
-import com.exception.AccountNotFoundException;
-import com.exception.ValidationException;
-import com.model.account.Account;
-import com.repository.AccountRepository;
+import com.example.s21974_bank.exception.AccountNotFoundException;
+import com.example.s21974_bank.exception.ValidationException;
+import com.example.s21974_bank.model.account.Account;
+import com.example.s21974_bank.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -27,6 +28,14 @@ public class AccountService {
             validationErrors.put("waluta", "Waluta musi byc poprawna (EUR, PLN, USD)");
         }
 
+        if(account.getImie() == null){
+            validationErrors.put("imie", "Musisz podac imie");
+        }
+
+        if(account.getImie() == null){
+            validationErrors.put("nazwisko", "Musisz podac nazwisko");
+        }
+
         if(!validationErrors.isEmpty()){
             throw new ValidationException(validationErrors);
         }
@@ -40,6 +49,11 @@ public class AccountService {
         Optional<Account> account = accountRepository.getByAccountId(id);
 
         return account.orElseThrow(() -> new AccountNotFoundException("Konto o numerze " + id + "nie istnieje"));
+    }
+
+    public List<Account> getGreaterAccounts(Double saldo){
+
+        return accountRepository.getGreaterAccounts(saldo);
     }
 
 

@@ -1,6 +1,6 @@
-package com.repository;
+package com.example.s21974_bank.repository;
 
-import com.model.account.Account;
+import com.example.s21974_bank.model.account.Account;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ public class AccountRepository {
                 .findFirst();
     }
 
-    public List<Account> getGreaterAccounts(Integer saldo){
+    public List<Account> getGreaterAccounts(Double saldo){
         return accountList.stream()
                 .filter(account -> account.getSaldo() > saldo)
                 .collect(Collectors.toList());
