@@ -16,6 +16,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AccountService {
     private AccountRepository accountRepository;
+
     public Account createAccount(Account account){
         Map<String, String> validationErrors = new HashMap<>();
         if(account.getSaldo() < 0 || account.getSaldo().isNaN()){
