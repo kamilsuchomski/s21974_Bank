@@ -8,26 +8,21 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.lang.Double;
 
 @RestController
 @RequestMapping("/account")
 @RequiredArgsConstructor
 public class AccountController {
 
+
     private final AccountService accountService;
 
-    @GetMapping("/greaterSaldo")
-    public ResponseEntity<List<Account>> getAccountByGreaterSaldoParam(@RequestParam(name = "saldo") Double saldo){
-        List<Account> accountList = accountService.getGreaterAccounts(saldo);
+    @GetMapping
+    public ResponseEntity<List<Account>> getAccountByGreaterSaldoParam(@RequestParam(name = "minimalSaldo") Double minimalSaldo){
+        List<Account> accountList = accountService.getGreaterAccounts(minimalSaldo);
 
         return  ResponseEntity.ok(accountList);
-    }
-
-    @GetMapping
-    public ResponseEntity<Account> getAccountByIdParam(@RequestParam(name = "id") Integer id){
-        Account account = accountService.getByAccountId(id);
-
-        return ResponseEntity.ok(account);
     }
 
     @GetMapping("/{id}")
