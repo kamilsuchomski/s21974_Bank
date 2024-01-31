@@ -30,4 +30,8 @@ public class AccountRepository {
                 .filter(account -> account.getSaldo() > saldo)
                 .collect(Collectors.toList());
     }
+
+    public void deleteAccounts(){
+        accountList = new ArrayList<>();
+    }
 }
