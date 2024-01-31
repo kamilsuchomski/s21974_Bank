@@ -3,6 +3,7 @@ package com.example.s21974_bank.service;
 import com.example.s21974_bank.exception.AccountNotFoundException;
 import com.example.s21974_bank.exception.ValidationException;
 import com.example.s21974_bank.model.account.Account;
+import com.example.s21974_bank.model.account.AccountCurrency;
 import com.example.s21974_bank.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,13 +20,16 @@ public class AccountService {
 
     public Account createAccount(Account account){
         Map<String, String> validationErrors = new HashMap<>();
-        if(account.getSaldo() < 0 || account.getSaldo().isNaN()){
+        if(account.getSaldo() == null || account.getSaldo() < 0 || account.getSaldo().isNaN()){
             validationErrors.put("saldo", "Saldo musi byc dodatnia liczba");
         }
-        if(!account.getPesel().matches("[0-9]+") || account.getPesel().length() != 11){
+        if(account.getPesel() == null || !account.getPesel().matches("[0-9]+") || account.getPesel().length() != 11){
             validationErrors.put("pesel", "Pesel musi byc jedenastocyfrowa liczba");
         }
-        if(account.getWaluta() == null){
+        if(account.getWaluta() == null
+                || !(account.getWaluta().equals(AccountCurrency.PLN)
+                || account.getWaluta().equals(AccountCurrency.EUR)
+                || account.getWaluta().equals(AccountCurrency.USD))){
             validationErrors.put("waluta", "Waluta musi byc poprawna (EUR, PLN, USD)");
         }
 
